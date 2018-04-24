@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+        python:
+                build: .
+                ports:
+                        - 8000:8000
+                volumes:
+                        - /server:/server
+                networks:
+                        - something
+        haproxy:
+                image: haproxy:1.5.19
+                depends_on:
+                        - python
+                ports:
+                        - 80:80
+                networks:
+                        - something
+networks:
+        something:
+                driver: bridge
